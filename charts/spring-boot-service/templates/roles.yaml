@@ -1,0 +1,45 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: namespace-reader
+  namespace: {{ template "application.namespace" . }}
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["configmaps", "pods", "services", "endpoints", "secrets", "namespaces"]
+    verbs: ["get", "list", "watch"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: namespace-reader-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccountName}}
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: namespace-reader
+  apiGroup: ""
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.serviceAccountName}}-service-discovery-client
+rules:
+  - apiGroups: ["", "extensions", "apps"] # "" indicates the core API group
+    resources: ["services", "pods", "configmaps", "endpoints", "namespaces"]
+    verbs: ["get", "watch", "list"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ .Values.serviceAccountName}}-service-discovery-client-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccountName}}
+    apiGroup: ""
+    namespace: {{ template "application.namespace" . }}
+roleRef:
+  kind: ClusterRole
+  name: {{ .Values.serviceAccountName}}-service-discovery-client
+  apiGroup: ""

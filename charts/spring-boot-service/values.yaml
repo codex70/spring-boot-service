@@ -1,0 +1,32 @@
+replicaCount: 1
+
+# Default service protocol, normally http for mesh communication
+serviceDefault:
+  protocol: http
+
+deployCertificates:
+  enabled: false
+
+applicationYaml:
+  spring:
+    cloud:
+      kubernetes:
+        discovery:
+          enabled: "true"
+  server:
+    ssl:
+      enabled: false
+  info:
+    app:
+      version: 1.0.0
+
+application:
+  imagePullPolicy: Always #IfNotPresent
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: dev,kubernetes
+    - name: TZ
+      value: Europe/Berlin
+  service:
+    port: 80
+

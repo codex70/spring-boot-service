@@ -1,0 +1,44 @@
+plugins {
+    id "io.freefair.lombok" version "6.6"
+}
+
+ext {
+    jodatime_version = '2.12.2'
+    logstash_logback_encoder_version = '7.2'
+    javafx_base_version = '20-ea+9'
+    jaxb_version = '2.4.0-b180830.0359'
+    jaxb_runtime_version = '4.0.1'
+    isRelease = System.getProperty("isRelease", "false").toBoolean()
+    buildNumber = System.getProperty("buildNumber", "latest")
+}
+
+bootBuildImage {
+    imageName = "${azureContainer}/$rootProject.name:${cfg.variables.applicationVersion}${(isRelease ? ".$buildNumber" : "-SNAPSHOT")}"
+}
+
+bootJar{
+    enabled = true
+}
+bootBuildImage.enabled = true
+
+dependencies {
+    implementation 'org.springframework:spring-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "org.springframework.cloud:spring-cloud-starter-kubernetes-client-all:${spring_cloud_kubernetes}"
+
+    implementation "com.fasterxml.jackson.core:jackson-core"
+    implementation "com.fasterxml.jackson.core:jackson-annotations"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-joda"
+    implementation "joda-time:joda-time:$jodatime_version"
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: "${logstash_logback_encoder_version}"
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
+    implementation "javax.xml.bind:jaxb-api:${jaxb_version}"
+    implementation "org.glassfish.jaxb:jaxb-runtime:${jaxb_runtime_version}"
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: "${javafx_base_version}"
+
+}

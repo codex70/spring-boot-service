@@ -1,0 +1,10 @@
+{{- if .Values.application.service.applicationJson -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-config
+data:
+  {{- with .Values.application.service.applicationJson }}
+  {{ toYaml . | indent 2 }}
+  {{- end }}
+{{- end }}

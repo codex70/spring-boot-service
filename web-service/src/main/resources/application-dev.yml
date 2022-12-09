@@ -1,0 +1,15 @@
+#Dev Profile-specific Properties
+
+# Remote Service User Details
+#----------------------------------------------------------------------------------------------------------
+audit:
+  level: INFO
+  application: WARN
+logging:
+  level:
+    root: INFO
+
+server:
+  ssl:
+    enabled: false
+  port: 8086

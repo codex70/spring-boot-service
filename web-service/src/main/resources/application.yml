@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: spring-boot-service
+  security:
+    user:
+      name: actuator
+      password: paswword
+      roles: ACTUATOR
+  profiles:
+    active: dev
+
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false         # Date serialization configuration
+  cloud:
+    kubernetes:
+      enabled: false

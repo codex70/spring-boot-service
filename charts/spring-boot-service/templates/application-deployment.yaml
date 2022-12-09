@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+{{- with .Values.application.service.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+  labels:
+    service: {{ template "application.fullname" . }}
+  name: {{ template "application.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      service: {{ template "application.fullname" . }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+{{- with .Values.application.service.annotations }}
+      annotations:
+{{ toYaml . | indent 8 }}
+{{- end }}
+      labels:
+        service: {{ template "application.fullname" . }}
+    spec:
+      #nodeName: node3
+      containers:
+      - env:
+{{ toYaml .Values.application.env | indent 8 }}
+        image: {{ .Values.image.name}}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.application.imagePullPolicy}}
+        name: {{ .Values.application.service.deploymentName}}
+        ports:
+        - containerPort: {{ .Values.application.service.targetPort}}
+        resources: {}
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log/containers
+{{- if .Values.deployCertificates.enabled }}
+{{ toYaml .Values.deployCertificates.env.volumeMounts | indent 10 }}
+{{- end }}
+
+      imagePullSecrets:
+        - name: {{ .Values.dockercfg.secretName}}
+      restartPolicy: Always
+      serviceAccountName: {{ .Values.serviceAccountName}}
+      volumes:
+        - name: varlog
+          emptyDir: {}
+{{- if .Values.deployCertificates.enabled }}
+{{ toYaml .Values.deployCertificates.volumes | indent 8 }}
+{{- end }}
+{{- if .Values.deployCertificates.enabled }}
+      initContainers:
+{{ toYaml .Values.deployCertificates.initContainers | indent 8 }}
+{{- end }}
