@@ -38,7 +38,6 @@ subprojects {
 	targetCompatibility = '17'
 
 	ext {
-		set('cfg', cfg)
 		set('snippetsDir', file("build/generated-snippets"))
 		set('springCloudVersion', "2022.0.0-RC3")
 		spring_cloud_kubernetes = '3.0.0-RC3'

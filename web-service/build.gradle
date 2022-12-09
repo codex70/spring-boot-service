@@ -12,10 +12,6 @@ ext {
     buildNumber = System.getProperty("buildNumber", "latest")
 }
 
-bootBuildImage {
-    imageName = "${azureContainer}/$rootProject.name:${cfg.variables.applicationVersion}${(isRelease ? ".$buildNumber" : "-SNAPSHOT")}"
-}
-
 bootJar{
     enabled = true
 }
