@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: spring-boot-service
+  name: spring-boot-service
+  namespace: spring-boot-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: spring-boot-service
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: spring-boot-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+          image: 'YOUR_IMAGE'
+          imagePullPolicy: IfNotPresent
+          name: spring-boot
+          ports:
+            - containerPort: 8088
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/log/containers
+              name: varlog
+      imagePullSecrets:
+        - name: lurse-container-secret
+      restartPolicy: Always
+      serviceAccountName: spring-boot-service
+      volumes:
+        - emptyDir: {}
+          name: varlog

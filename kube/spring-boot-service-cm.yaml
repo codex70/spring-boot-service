@@ -1,0 +1,21 @@
+apiVersion: v1
+data:
+  application.yml: |-
+    server:
+      port: 8088
+      ssl:
+        enabled: false
+    spring:
+      application:
+        name: spring-boot
+      cloud:
+        kubernetes:
+          discovery:
+            enabled: true
+kind: ConfigMap
+metadata:
+  labels:
+    app: spring-boot-service
+    version: 1.0.0
+  name: spring-boot-service
+  namespace: spring-boot-test
