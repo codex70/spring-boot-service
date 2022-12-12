@@ -1,7 +1,4 @@
 spring:
-  config:
-    activate:
-      on-profile: kubernetes
   cloud:
     kubernetes:
       enabled: true
@@ -14,3 +11,7 @@ spring:
         mode: event
       config:
         enabled: true
+        name: "spring-boot-service"
+        sources:
+          - name: "spring-boot-service"
+        fail-fast: true
