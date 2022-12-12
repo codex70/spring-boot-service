@@ -2,11 +2,10 @@ package com.spring.boot.service.web.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication (exclude = SecurityAutoConfiguration.class, scanBasePackages = {"com.spring.boot"})
+@SpringBootApplication (scanBasePackages = {"com.spring.boot"})
 @EnableDiscoveryClient
 @ConfigurationPropertiesScan
 public class SpringBootServiceApplication
