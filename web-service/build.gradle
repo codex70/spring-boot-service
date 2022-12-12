@@ -21,7 +21,6 @@ dependencies {
     implementation 'org.springframework:spring-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation "org.springframework.cloud:spring-cloud-starter-kubernetes-client-all:${spring_cloud_kubernetes}"
 
     implementation "com.fasterxml.jackson.core:jackson-core"

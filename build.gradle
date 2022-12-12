@@ -41,8 +41,6 @@ subprojects {
 		set('snippetsDir', file("build/generated-snippets"))
 		set('springCloudVersion', "2022.0.0-RC3")
 		spring_cloud_kubernetes = '3.0.0-RC3'
-		assertj_version = '3.23.1'
-		hystrix_core_version = '1.5.18'
 	}
 
 	bootJar{
@@ -53,13 +51,10 @@ subprojects {
 	dependencies {
 		implementation group: 'org.apache.commons', name: 'commons-lang3'
 		implementation "org.springframework.boot:spring-boot-starter-validation"
-		implementation "org.springframework.boot:spring-boot-starter-security"
 
 		annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 		compileOnly "org.projectlombok:lombok"
 		annotationProcessor "org.projectlombok:lombok"
-
-		implementation group: 'com.netflix.hystrix', name: 'hystrix-core', version: "${hystrix_core_version}"
 	}
 
 	dependencyManagement {
