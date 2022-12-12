@@ -4,7 +4,7 @@ metadata:
   labels:
     service: spring-boot-service
   name: spring-boot-service
-  namespace: spring-boot-test
+  namespace: spring-boot
 spec:
   replicas: 1
   selector:
@@ -21,7 +21,7 @@ spec:
         - env:
             - name: SPRING_PROFILES_ACTIVE
               value: kubernetes
-          image: 'YOUR_IMAGE'
+          image: 'lursecontainerregistry.azurecr.io/spring-boot-service:0.0.6175'
           imagePullPolicy: IfNotPresent
           name: spring-boot
           ports:

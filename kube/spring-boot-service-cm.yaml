@@ -16,6 +16,5 @@ kind: ConfigMap
 metadata:
   labels:
     app: spring-boot-service
-    version: 1.0.0
   name: spring-boot-service
-  namespace: spring-boot-test
+  namespace: spring-boot
