@@ -6,8 +6,6 @@ data:
       ssl:
         enabled: false
     spring:
-      application:
-        name: spring-boot
       cloud:
         kubernetes:
           discovery:
